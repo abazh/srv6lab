@@ -1,0 +1,290 @@
+version: '3.9'
+
+services:
+  R1:
+    image: quay.io/frrouting/frr:8.5.1
+    hostname: R1
+    container_name: R1
+    sysctls:
+      net.ipv6.conf.all.forwarding: 1
+      net.ipv6.conf.all.seg6_enabled: 1
+      net.ipv6.seg6_flowlabel: 1
+      net.ipv6.conf.default.seg6_enabled: 1
+      net.ipv6.conf.all.disable_ipv6: 0
+      net.ipv4.ip_forward: 1
+      net.ipv6.conf.eth1.seg6_enabled: 1
+      net.ipv6.conf.eth2.seg6_enabled: 1
+    privileged: true
+    volumes:
+      - ./config/R1:/etc/frr
+      - ./hosts:/etc/hosts
+    networks:
+      R1R2:
+        ipv4_address: "10.10.10.10"
+        ipv6_address: "fc00:10:10:10::10"
+      R1R3:
+        ipv4_address: "10.10.20.10"
+        ipv6_address: "fc00:10:10:20::10"
+      C1R1:
+        ipv4_address: "10.10.1.254"
+        ipv6_address: "fc00:10:10:1::254"
+
+  C1:
+    image: quay.io/truecharts/netshoot
+    command: tail -f /dev/null
+    hostname: C1
+    container_name: C1
+    privileged: true
+    volumes:
+      - ./hosts:/etc/hosts
+    networks:
+      C1R1:
+        ipv4_address: "10.10.1.2"
+        ipv6_address: "fc00:10:10:1::2"
+
+  R2:
+    image: quay.io/frrouting/frr:8.5.1
+    hostname: R2
+    container_name: R2
+    sysctls:
+      net.ipv6.conf.all.forwarding: 1
+      net.ipv6.conf.all.seg6_enabled: 1
+      net.ipv6.seg6_flowlabel: 1
+      net.ipv6.conf.default.seg6_enabled: 1
+      net.ipv6.conf.all.disable_ipv6: 0
+      net.ipv4.ip_forward: 1
+      net.ipv6.conf.eth1.seg6_enabled: 1
+      net.ipv6.conf.eth2.seg6_enabled: 1
+    privileged: true
+    volumes:
+      - ./config/R2:/etc/frr
+      - ./hosts:/etc/hosts
+    networks:
+      R1R2:
+        ipv4_address: "10.10.10.20"
+        ipv6_address: "fc00:10:10:10::20"
+      R2R4:
+        ipv4_address: "10.10.30.20"
+        ipv6_address: "fc00:10:10:30::20"
+      C2R2:
+        ipv4_address: "10.10.2.254"
+        ipv6_address: "fc00:10:10:2::254"
+
+  C2:
+    image: quay.io/truecharts/netshoot
+    command: tail -f /dev/null
+    hostname: C2
+    container_name: C2
+    privileged: true
+    volumes:
+      - ./hosts:/etc/hosts
+    networks:
+      C2R2:
+        ipv4_address: "10.10.2.2"
+        ipv6_address: "fc00:10:10:2::2"
+
+  R3:
+    image: quay.io/frrouting/frr:8.5.1
+    hostname: R3
+    container_name: R3
+    sysctls:
+      net.ipv6.conf.all.forwarding: 1
+      net.ipv6.conf.all.seg6_enabled: 1
+      net.ipv6.seg6_flowlabel: 1
+      net.ipv6.conf.default.seg6_enabled: 1
+      net.ipv6.conf.all.disable_ipv6: 0
+      net.ipv4.ip_forward: 1
+      net.ipv6.conf.eth1.seg6_enabled: 1
+      net.ipv6.conf.eth2.seg6_enabled: 1
+    privileged: true
+    volumes:
+      - ./config/R3:/etc/frr
+      - ./hosts:/etc/hosts
+    networks:
+      R1R3:
+        ipv4_address: "10.10.20.30"
+        ipv6_address: "fc00:10:10:20::30"
+      R3R5:
+        ipv4_address: "10.10.40.30"
+        ipv6_address: "fc00:10:10:40::30"
+      C3R3:
+        ipv4_address: "10.10.3.254"
+        ipv6_address: "fc00:10:10:3::254"
+
+  C3:
+    image: quay.io/truecharts/netshoot
+    command: tail -f /dev/null
+    hostname: C3
+    container_name: C3
+    privileged: true
+    volumes:
+      - ./hosts:/etc/hosts
+    networks:
+      C3R3:
+        ipv4_address: "10.10.3.2"
+        ipv6_address: "fc00:10:10:3::2"
+
+  R4:
+    image: quay.io/frrouting/frr:8.5.1
+    hostname: R4
+    container_name: R4
+    sysctls:
+      net.ipv6.conf.all.forwarding: 1
+      net.ipv6.conf.all.seg6_enabled: 1
+      net.ipv6.seg6_flowlabel: 1
+      net.ipv6.conf.default.seg6_enabled: 1
+      net.ipv6.conf.all.disable_ipv6: 0
+      net.ipv4.ip_forward: 1
+      net.ipv6.conf.eth1.seg6_enabled: 1
+      net.ipv6.conf.eth2.seg6_enabled: 1
+    privileged: true
+    volumes:
+      - ./config/R4:/etc/frr
+      - ./hosts:/etc/hosts
+    networks:
+      R2R4:
+        ipv4_address: "10.10.30.40"
+        ipv6_address: "fc00:10:10:30::40"
+      R4R5:
+        ipv4_address: "10.10.50.40"
+        ipv6_address: "fc00:10:10:50::40"
+      C4R4:
+        ipv4_address: "10.10.4.254"
+        ipv6_address: "fc00:10:10:4::254"
+
+  C4:
+    image: quay.io/truecharts/netshoot
+    command: tail -f /dev/null
+    hostname: C4
+    container_name: C4
+    privileged: true
+    volumes:
+      - ./hosts:/etc/hosts
+    networks:
+      C4R4:
+        ipv4_address: "10.10.4.2"
+        ipv6_address: "fc00:10:10:4::2"
+
+  R5:
+    image: quay.io/frrouting/frr:8.5.1
+    hostname: R5
+    container_name: R5
+    sysctls:
+      net.ipv6.conf.all.forwarding: 1
+      net.ipv6.conf.all.seg6_enabled: 1
+      net.ipv6.seg6_flowlabel: 1
+      net.ipv6.conf.default.seg6_enabled: 1
+      net.ipv6.conf.all.disable_ipv6: 0
+      net.ipv4.ip_forward: 1
+      net.ipv6.conf.eth1.seg6_enabled: 1
+      net.ipv6.conf.eth2.seg6_enabled: 1
+    privileged: true
+    volumes:
+      - ./config/R5:/etc/frr
+      - ./hosts:/etc/hosts
+    networks:
+      R3R5:
+        ipv4_address: "10.10.40.50"
+        ipv6_address: "fc00:10:10:40::50"
+      R4R5:
+        ipv4_address: "10.10.50.50"
+        ipv6_address: "fc00:10:10:50::50"
+      C5R5:
+        ipv4_address: "10.10.5.254"
+        ipv6_address: "fc00:10:10:5::254"
+
+  C5:
+    image: quay.io/truecharts/netshoot
+    command: tail -f /dev/null
+    hostname: C5
+    container_name: C5
+    privileged: true
+    volumes:
+      - ./hosts:/etc/hosts
+    networks:
+      C5R5:
+        ipv4_address: "10.10.5.2"
+        ipv6_address: "fc00:10:10:5::2"
+
+networks:
+  R1R2:
+    name: R1R2
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
+        - subnet: fc00:10:10:10::/64
+  R1R3:
+    name: R1R3
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.20.0/24
+        - subnet: fc00:10:10:20::/64
+  R2R4:
+    name: R2R4
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.30.0/24
+        - subnet: fc00:10:10:30::/64
+  R3R5:
+    name: R3R5
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.40.0/24
+        - subnet: fc00:10:10:40::/64
+  R4R5:
+    name: R4R5
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.50.0/24
+        - subnet: fc00:10:10:50::/64
+  
+  C1R1:
+    name: C1R1
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.1.0/24
+        - subnet: fc00:10:10:1::/64
+  C2R2:
+    name: C2R2
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.2.0/24
+        - subnet: fc00:10:10:2::/64
+  C3R3:
+    name: C3R3
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.3.0/24
+        - subnet: fc00:10:10:3::/64
+  C4R4:
+    name: C4R4
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.4.0/24
+        - subnet: fc00:10:10:4::/64
+  C5R5:
+    name: C5R5
+    driver: macvlan
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.10.5.0/24
+        - subnet: fc00:10:10:5::/64
