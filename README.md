@@ -1,5 +1,6 @@
 # SRv6 Docker-based Lab
 It is just a simple docker-based SRv6 Lab
+Follow the topology ![Image of Topology](LabTopoSrv6.pdf)
 
 ## Start the Lab
 Run the `./lab_start.sh`
