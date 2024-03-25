@@ -1,7 +1,43 @@
 # SRv6 Docker-based Lab
 It is just a simple docker-based SRv6 Lab
-Follow the topology ![Image of Topology](LabTopoSrv6.pdf)
+Follow the topology 
 
+```mermaid
+graph LR;
+%%Colors
+
+classDef host fill:#fffb05, stroke:#000000;
+classDef switch fill:#1fd655, stroke:#000000;
+classDef router fill:#ffa500, stroke:#000000;
+
+%%element
+c1(C1):::host
+c2(C2):::host
+c3(C3):::host
+c4(C4):::host
+c5(C5):::host
+r1(((R1))):::router
+r2(((R2))):::router
+r3(((R3))):::router
+r4(((R4))):::router
+r5(((R5))):::router
+
+%%connectivity
+
+c1 --- r1
+c2 --- r1
+c3 --- r1
+
+r1 --- r2
+r2 --- r4
+r4 --- r5
+r1 --- r3
+r3 --- r5
+
+c4 --- r5
+c5 --- r5
+
+```
 ## Start the Lab
 Run the `./lab_start.sh`
 Then run `sh srv6_encaps_ipv4.sh`
