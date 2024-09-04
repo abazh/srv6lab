@@ -30,7 +30,7 @@ services:
         ipv6_address: "fc00:10:10:1::254"
 
   C1:
-    image: quay.io/truecharts/netshoot
+    image: nicolaka/netshoot
     command: tail -f /dev/null
     hostname: C1
     container_name: C1
@@ -71,7 +71,7 @@ services:
         ipv6_address: "fc00:10:10:2::254"
 
   C2:
-    image: quay.io/truecharts/netshoot
+    image: nicolaka/netshoot
     command: tail -f /dev/null
     hostname: C2
     container_name: C2
@@ -112,7 +112,7 @@ services:
         ipv6_address: "fc00:10:10:3::254"
 
   C3:
-    image: quay.io/truecharts/netshoot
+    image: nicolaka/netshoot
     command: tail -f /dev/null
     hostname: C3
     container_name: C3
@@ -153,7 +153,7 @@ services:
         ipv6_address: "fc00:10:10:4::254"
 
   C4:
-    image: quay.io/truecharts/netshoot
+    image: nicolaka/netshoot
     command: tail -f /dev/null
     hostname: C4
     container_name: C4
@@ -194,7 +194,7 @@ services:
         ipv6_address: "fc00:10:10:5::254"
 
   C5:
-    image: quay.io/truecharts/netshoot
+    image: nicolaka/netshoot
     command: tail -f /dev/null
     hostname: C5
     container_name: C5
