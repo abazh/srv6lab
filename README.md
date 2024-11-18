@@ -1,6 +1,16 @@
 # SRv6 Docker-based Lab
 It is just a simple docker-based SRv6 Lab
-Follow the topology 
+
+## Prerequisites
+To run this docker SRv6 lab you must use docker engine version <= 26.1.4
+If you are on Ubuntu 22.04 LTS, please follow the instruction at the https://docs.docker.com/engine/install/ubuntu/ and select the desired version
+```bash
+VERSION_STRING=5:26.1.4-1~ubuntu.22.04~jammy
+sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+
+## The Topology 
 
 ```mermaid
 graph LR;
