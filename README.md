@@ -70,7 +70,7 @@ docker exec -it R5 ip -4 route add 10.10.1.0/24 encap seg6 mode encap segs fc00:
 # if you would like to capture the traffic on a some segment you may refer to the below command, just change the example R1R2 example.
 of course, you need to install tshark on your Linux.
 ```py
-sudo tshark -i dm-`\`docker network ls | grep -i R1R2 | cut -d ' ' -f1\` -Y icmpv6 -V |grep -i source
+sudo tshark -i dm-$(docker network ls | grep -i R1R2 | cut -d ' ' -f1) -Y icmpv6 -V |grep -i source
 ```
 
 ## Stop the Lab
